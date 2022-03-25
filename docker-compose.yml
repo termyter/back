@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+
+
+  education:
+    build:
+      context: educationProgram
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      SERVICE_NAME: education
+
+
+  user:
+    build:
+      context: User
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      SERVICE_NAME: user
+
+  gateway:
+    build:
+      context: ./Gateway
+    links:
+      - User
+      - educatuion
+    ports:
+      - 8080:80
