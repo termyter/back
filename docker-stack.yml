@@ -37,6 +37,7 @@ services:
         condition: on-failure
 
   gateway:
+    image: termyter1/back:gateway
     build:
       context: ./Gateway
     links:
@@ -51,3 +52,5 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+
+
