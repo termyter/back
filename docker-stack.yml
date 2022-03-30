@@ -4,7 +4,9 @@ services:
 
 
   education:
+    image: termyter1/back:education
     build:
+
       context: educationProgram
       dockerfile: Dockerfile
     ports:
