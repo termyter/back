@@ -4,9 +4,7 @@ services:
 
 
   education:
-    build:
-      context: educationProgram
-      dockerfile: Dockerfile
+    image: termyter1/back:education
     ports:
       - "3001:3001"
     environment:
@@ -14,19 +12,40 @@ services:
 
 
   user:
-    build:
-      context: User
-      dockerfile: Dockerfile
+    image: back_user
     ports:
       - "3000:3000"
     environment:
       SERVICE_NAME: user
 
+  employer:
+    image: back_employer
+    ports:
+      - "3002:3002"
+    environment:
+      SERVICE_NAME: employer
+
+  executive:
+    image: back_executive
+    ports:
+      - "3004:3004"
+    environment:
+      SERVICE_NAME: employer
+
+  onbording:
+    image: back_onbording
+    ports:
+      - "3003:3003"
+    environment:
+      SERVICE_NAME: onbording
+
   gateway:
-    build:
-      context: ./Gateway
+    image: termyter1/back:gateway
     links:
+      - onbording
+      - executive
+      - employer
       - User
-      - educatuion
+      - education
     ports:
       - 8080:80

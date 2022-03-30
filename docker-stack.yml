@@ -4,11 +4,7 @@ services:
 
 
   education:
-    image: termyter1/back:education
-    build:
-
-      context: educationProgram
-      dockerfile: Dockerfile
+    image: hub.docker.com/r/termyter1/back:education
     ports:
       - "3001:3001"
     environment:
