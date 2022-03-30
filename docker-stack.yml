@@ -1,0 +1,53 @@
+version: "3"
+
+services:
+
+
+  education:
+    build:
+      context: educationProgram
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      SERVICE_NAME: education
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+
+  user:
+    build:
+      context: User
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      SERVICE_NAME: user
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  gateway:
+    build:
+      context: ./Gateway
+    links:
+      - User
+      - educatuion
+    ports:
+      - 8080:80
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
